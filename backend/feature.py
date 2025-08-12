@@ -154,8 +154,11 @@ def chatBot(query):
         DEFAULT_MODEL, 
         MAX_TOKENS, 
         TEMPERATURE, 
-        SYSTEM_MESSAGE
+        SYSTEM_MESSAGE,
+        CHAT_HISTORY_CONTEXT_LIMIT,
+        USE_CHAT_HISTORY
     )
+    from backend.db import get_recent_chat_context
     
     if not OPENAI_API_KEY:
         speak("OpenAI API key is not set. Please configure it in your environment variables.")
@@ -170,13 +173,25 @@ def chatBot(query):
             base_url=OPENAI_API_BASE
         )
         
+        # Build messages array starting with system message
+        messages = [{"role": "system", "content": SYSTEM_MESSAGE}]
+        
+        # Add recent chat history as context if enabled
+        if USE_CHAT_HISTORY:
+            chat_history = get_recent_chat_context(CHAT_HISTORY_CONTEXT_LIMIT)
+            for user_msg, ai_msg in chat_history:
+                messages.append({"role": "user", "content": user_msg})
+                messages.append({"role": "assistant", "content": ai_msg})
+        
+        # Add current user message
+        messages.append({"role": "user", "content": user_input})
+        
+        print(f"Sending {len(messages)} messages to AI (including {len(chat_history) if USE_CHAT_HISTORY else 0} history pairs)")
+        
         # Create chat completion with the new client
         response = client.chat.completions.create(
             model=DEFAULT_MODEL,
-            messages=[
-                {"role": "system", "content": SYSTEM_MESSAGE},
-                {"role": "user", "content": user_input}
-            ],
+            messages=messages,
             max_tokens=MAX_TOKENS,
             temperature=TEMPERATURE
         )

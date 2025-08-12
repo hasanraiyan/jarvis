@@ -8,11 +8,38 @@ A personal AI assistant project that uses voice recognition, face authentication
 
 - Face Authentication for secure access
 - Voice commands for hands-free interaction
+- **Persistent Chat History** - All conversations are saved and can be viewed anytime
 - Open applications and websites
 - Send WhatsApp messages, make calls, and video calls
 - Play YouTube videos
 - Chatbot integration for general queries
 - Text-to-speech responses
+
+---
+
+## Chat History & Context
+
+The AI assistant now includes persistent chat history with contextual awareness:
+
+### **Chat History Features:**
+- **View History**: Click the chat icon (💬) to view all previous conversations
+- **Auto-Save**: All user messages and AI responses are automatically saved to the database
+- **Timestamps**: Each conversation includes date and time information
+- **Clear History**: Option to clear all chat history when needed
+- **Refresh**: Real-time updates when viewing chat history
+
+### **Contextual AI Responses:**
+- **Memory**: AI remembers previous conversations and can reference them
+- **Continuity**: Conversations flow naturally with context from recent interactions
+- **Personalization**: AI can remember your preferences, name, and previous topics
+- **Smart Context**: Uses last 5 conversations as context (configurable)
+
+### **Configuration:**
+- **Context Limit**: Adjust how many previous conversations to include (default: 5)
+- **Toggle Context**: Enable/disable contextual responses in `backend/openai_config.py`
+- **Storage**: Chat history is stored in SQLite database (`jarvis.db`) and persists between sessions
+
+**Example:** If you tell JARVIS "My name is John" in one conversation, it will remember your name in future conversations!
 
 ---
 

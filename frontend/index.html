@@ -441,6 +441,11 @@
               </div>
             </div>
             <h4 class="text-light text-center">Ask me Anything</h4>
+            <div id="contextIndicator" class="text-center mt-2">
+              <small class="text-muted">
+                <i class="bi bi-brain"></i> Context-aware responses enabled
+              </small>
+            </div>
 
             <div class="col-md-12 mt-4 pt-4">
               <div class="text-center">
@@ -457,6 +462,9 @@
                   </button>
                   <button id="ChatBtn" class="glow-on-hover">
                     <i class="bi bi-chat-dots"></i>
+                  </button>
+                  <button id="SendBtn" class="glow-on-hover" hidden>
+                    <i class="bi bi-send"></i>
                   </button>
                   <button id="SettingBtn" class="glow-on-hover">
                     <i class="bi bi-gear-wide-connected"></i>
@@ -478,13 +486,36 @@
                 style="height: 100vh"
               >
                 <div class="">
-                  <p class="text-start text-light mb-4 siri-message">
-                    Hello, I am Your Assistant
-                  </p>
+            
                   <div id="siri-container"></div>
                   <div id="caption-container" class="caption-text"></div>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chat History Modal -->
+    <div class="modal fade" id="chatHistoryModal" tabindex="-1" aria-labelledby="chatHistoryModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content bg-dark text-light">
+          <div class="modal-header border-secondary">
+            <h5 class="modal-title" id="chatHistoryModalLabel">Chat History</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="d-flex justify-content-between mb-3">
+              <button id="refreshHistoryBtn" class="btn btn-outline-primary btn-sm">
+                <i class="bi bi-arrow-clockwise"></i> Refresh
+              </button>
+              <button id="clearHistoryBtn" class="btn btn-outline-danger btn-sm">
+                <i class="bi bi-trash"></i> Clear History
+              </button>
+            </div>
+            <div id="chat-canvas-body" class="chat-history-container" style="max-height: 400px; overflow-y: auto;">
+              <!-- Chat history will be loaded here -->
             </div>
           </div>
         </div>

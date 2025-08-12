@@ -59,30 +59,18 @@ $(document).ready(function () {
 
   eel.expose(senderText);
   function senderText(message) {
-    var chatBox = document.getElementById("chat-canvas-body");
-    if (message.trim() !== "") {
-      chatBox.innerHTML += `<div class="row justify-content-end mb-4">
-          <div class = "width-size">
-          <div class="sender_message">${message}</div>
-      </div>`;
-
-      chatBox.scrollTop = chatBox.scrollHeight;
-    }
+    // This function is called when user sends a message
+    // We don't need to display it in the main interface anymore
+    // as it will be saved to history and shown in the modal
+    console.log("User message:", message);
   }
 
   eel.expose(receiverText);
   function receiverText(message) {
-    var chatBox = document.getElementById("chat-canvas-body");
-    if (message.trim() !== "") {
-      chatBox.innerHTML += `<div class="row justify-content-start mb-4">
-          <div class = "width-size">
-          <div class="receiver_message">${message}</div>
-          </div>
-      </div>`;
-
-      // Scroll to the bottom of the chat box
-      chatBox.scrollTop = chatBox.scrollHeight;
-    }
+    // This function is called when AI responds
+    // We don't need to display it in the main interface anymore
+    // as it will be saved to history and shown in the modal
+    console.log("AI response:", message);
   }
   eel.expose(hideLoader);
   function hideLoader() {

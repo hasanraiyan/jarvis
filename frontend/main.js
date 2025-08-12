@@ -1,6 +1,9 @@
 $(document).ready(function () {
 
   eel.init()();
+  
+  // Initialize chat history
+  eel.initializeChatHistory()();
   $(".text").textillate({
     loop: true,
     speed: 1500,
@@ -123,6 +126,53 @@ $(document).ready(function () {
     let message = $("#chatbox").val();
     PlayAssistant(message);
   });
+
+  // Chat History functionality
+  $("#ChatBtn").click(function () {
+    loadChatHistory();
+    $("#chatHistoryModal").modal('show');
+  });
+
+  $("#refreshHistoryBtn").click(function () {
+    loadChatHistory();
+  });
+
+  $("#clearHistoryBtn").click(function () {
+    if (confirm("Are you sure you want to clear all chat history?")) {
+      eel.clearChatHistory()().then(() => {
+        loadChatHistory();
+      });
+    }
+  });
+
+  function loadChatHistory() {
+    eel.getChatHistory()().then((history) => {
+      const chatContainer = $("#chat-canvas-body");
+      chatContainer.empty();
+      
+      if (history && history.length > 0) {
+        history.forEach((chat) => {
+          const [userMessage, aiResponse, timestamp] = chat;
+          const chatItem = `
+            <div class="chat-history-item">
+              <div class="chat-timestamp">${new Date(timestamp).toLocaleString()}</div>
+              <div class="chat-user-message">${userMessage}</div>
+              <div class="chat-ai-message">${aiResponse}</div>
+            </div>
+          `;
+          chatContainer.append(chatItem);
+        });
+      } else {
+        chatContainer.html('<div class="text-center text-muted">No chat history found</div>');
+      }
+      
+      // Scroll to bottom
+      chatContainer.scrollTop(chatContainer[0].scrollHeight);
+    }).catch((error) => {
+      console.error("Error loading chat history:", error);
+      $("#chat-canvas-body").html('<div class="text-center text-danger">Error loading chat history</div>');
+    });
+  }
 
   $("#chatbox").keypress(function (e) {
     let key = e.which;

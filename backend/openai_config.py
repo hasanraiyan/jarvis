@@ -9,3 +9,6 @@ TEMPERATURE = 0.7
 
 # System message to define JARVIS's personality
 SYSTEM_MESSAGE = "You are a helpful AI assistant named JARVIS."
+# Chat History Configuration
+CHAT_HISTORY_CONTEXT_LIMIT = 5  # Number of previous conversations to include as context
+USE_CHAT_HISTORY = True  # Enable/disable chat history context
