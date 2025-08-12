@@ -374,4 +374,54 @@ svg {
 .btn-outline-danger:hover {
   background-color: #dc3545;
   border-color: #dc3545;
+}/* Face Setu
+p Styles */
+#FaceSetup {
+  color: #fff;
+}
+
+#setupVideo {
+  border: 2px solid #00AAFF;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 170, 255, 0.3);
+}
+
+.progress {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+.progress-bar {
+  background: linear-gradient(45deg, #00AAFF, #0066CC);
+  transition: width 0.3s ease;
+}
+
+#startSetupBtn {
+  background: linear-gradient(45deg, #00AAFF, #0066CC);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 25px;
+  transition: all 0.3s ease;
+}
+
+#startSetupBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 170, 255, 0.4);
+}
+
+#startSetupBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+#skipSetupBtn {
+  border: 1px solid #6c757d;
+  padding: 10px 20px;
+  border-radius: 25px;
+  transition: all 0.3s ease;
+}
+
+#skipSetupBtn:hover {
+  background-color: #6c757d;
+  color: white;
 }

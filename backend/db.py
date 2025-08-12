@@ -10,6 +10,8 @@ query = "CREATE TABLE IF NOT EXISTS web_command(id integer primary key, name VAR
 cursor.execute(query)
 query = "CREATE TABLE IF NOT EXISTS chat_history(id integer primary key, user_message TEXT, ai_response TEXT, timestamp DATETIME DEFAULT CURRENT_TIMESTAMP)"
 cursor.execute(query)
+query = "CREATE TABLE IF NOT EXISTS face_auth(id integer primary key, user_id INTEGER DEFAULT 1, is_setup BOOLEAN DEFAULT 0, setup_date DATETIME DEFAULT CURRENT_TIMESTAMP)"
+cursor.execute(query)
 conn.commit()
 
 
@@ -105,3 +107,34 @@ def get_recent_chat_context(limit=5):
     except Exception as e:
         print(f"Error retrieving chat context: {e}")
         return []
+
+# Face authentication functions
+def is_face_setup():
+    """Check if face authentication is already set up"""
+    try:
+        cursor.execute("SELECT is_setup FROM face_auth WHERE user_id = 1")
+        result = cursor.fetchone()
+        return result[0] if result else False
+    except Exception as e:
+        print(f"Error checking face setup: {e}")
+        return False
+
+def mark_face_setup_complete():
+    """Mark face authentication as set up"""
+    try:
+        cursor.execute("INSERT OR REPLACE INTO face_auth (user_id, is_setup) VALUES (1, 1)")
+        conn.commit()
+        return True
+    except Exception as e:
+        print(f"Error marking face setup complete: {e}")
+        return False
+
+def reset_face_setup():
+    """Reset face authentication setup"""
+    try:
+        cursor.execute("UPDATE face_auth SET is_setup = 0 WHERE user_id = 1")
+        conn.commit()
+        return True
+    except Exception as e:
+        print(f"Error resetting face setup: {e}")
+        return False

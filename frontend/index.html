@@ -375,15 +375,47 @@
                     </g>
                   </svg>
                 </div>
+                <div id="FaceSetup" class="mb-4" hidden>
+                  <div class="text-center">
+                    <h3 class="text-light mb-3">Face Authentication Setup</h3>
+                    <p class="text-muted mb-4">Position your face in the camera and click "Start Setup"</p>
+                    <video id="setupVideo" width="320" height="240" autoplay style="border: 2px solid #00AAFF; border-radius: 10px;" hidden></video>
+                    <div id="setupProgress" class="mt-3" hidden>
+                      <div class="progress" style="height: 20px;">
+                        <div id="setupProgressBar" class="progress-bar bg-info" role="progressbar" style="width: 0%"></div>
+                      </div>
+                      <p class="text-light mt-2">Capturing face samples: <span id="sampleCount">0</span>/30</p>
+                    </div>
+                    <div class="mt-3">
+                      <button id="startSetupBtn" class="btn btn-primary me-2">
+                        <i class="bi bi-camera"></i> Start Setup
+                      </button>
+                      <button id="skipSetupBtn" class="btn btn-outline-secondary">
+                        Skip for now
+                      </button>
+                    </div>
+                  </div>
+                </div>
                 <div id="FaceAuth" class="mb-4" hidden>
-                  <dotlottie-player
-                    src="https://lottie.host/e2aecd28-1963-41f4-a1f2-aff7f7c3e361/mZENGLOUf3.lottie"
-                    background="transparent"
-                    speed="1"
-                    style="width: 300px; height: 300px"
-                    loop
-                    autoplay
-                  ></dotlottie-player>
+                  <div class="text-center">
+                    <dotlottie-player
+                      src="https://lottie.host/e2aecd28-1963-41f4-a1f2-aff7f7c3e361/mZENGLOUf3.lottie"
+                      background="transparent"
+                      speed="1"
+                      style="width: 300px; height: 300px"
+                      loop
+                      autoplay
+                    ></dotlottie-player>
+                    <p class="text-light mt-3">Look at the camera for authentication</p>
+                    <div class="mt-3">
+                      <button id="retryAuthBtn" class="btn btn-outline-primary me-2" hidden>
+                        <i class="bi bi-arrow-clockwise"></i> Retry
+                      </button>
+                      <button id="resetAuthBtn" class="btn btn-outline-warning" hidden>
+                        <i class="bi bi-gear"></i> Reset Setup
+                      </button>
+                    </div>
+                  </div>
                 </div>
                 <div id="FaceAuthSuccess" class="mb-4" hidden>
                   <lottie-player

@@ -127,8 +127,9 @@ def initializeChatHistory():
         return True
     except Exception as e:
         print(f"Error initializing chat history: {e}")
-        return False@ee
-l.expose
+        return False
+
+@eel.expose
 def getChatContextSettings():
     """Get current chat context settings"""
     from backend.openai_config import CHAT_HISTORY_CONTEXT_LIMIT, USE_CHAT_HISTORY

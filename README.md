@@ -6,7 +6,8 @@ A personal AI assistant project that uses voice recognition, face authentication
 
 ## Features
 
-- Face Authentication for secure access
+- **Real Face Authentication** - Secure access with camera-based face recognition
+- **First-time Setup Flow** - Easy face registration process for new users
 - Voice commands for hands-free interaction
 - **Persistent Chat History** - All conversations are saved and can be viewed anytime
 - Open applications and websites
@@ -14,6 +15,31 @@ A personal AI assistant project that uses voice recognition, face authentication
 - Play YouTube videos
 - Chatbot integration for general queries
 - Text-to-speech responses
+
+---
+
+## Face Authentication
+
+The AI assistant includes a comprehensive face authentication system:
+
+### **First-Time Setup:**
+- **Camera Access**: Automatically requests camera permission on first launch
+- **Face Capture**: Captures 30 face samples for training
+- **Real-time Progress**: Shows capture progress with visual feedback
+- **Auto-Training**: Automatically trains the face recognition model
+- **Skip Option**: Can skip setup and configure later
+
+### **Authentication Process:**
+- **Real-time Recognition**: Uses OpenCV for face detection and recognition
+- **Secure Access**: Only authenticated users can access the assistant
+- **Retry Options**: Multiple attempts allowed with retry buttons
+- **Reset Capability**: Can reset and reconfigure face authentication
+
+### **Technical Details:**
+- **OpenCV Integration**: Uses Haar Cascade classifiers for face detection
+- **LBPH Recognition**: Local Binary Pattern Histogram for face recognition
+- **Browser Camera API**: Captures images directly from browser
+- **Secure Storage**: Face data stored locally and encrypted
 
 ---
 
