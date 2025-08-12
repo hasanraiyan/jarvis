@@ -4,16 +4,43 @@ import speech_recognition as sr
 import eel
 
 def speak(text):
-    text = str(text)
-    engine = pyttsx3.init('sapi5')
-    voices = engine.getProperty('voices')
-    # print(voices)
-    engine.setProperty('voice', voices[2].id)
-    eel.DisplayMessage(text)
-    engine.say(text)
-    engine.runAndWait()
-    engine.setProperty('rate', 174)
-    eel.receiverText(text)
+    try:
+        text = str(text)
+        engine = pyttsx3.init('sapi5')
+        voices = engine.getProperty('voices')
+        
+        # Safely select voice (fallback if not enough voices)
+        if voices and len(voices) > 2:
+            engine.setProperty('voice', voices[2].id)
+        elif voices and len(voices) > 0:
+            engine.setProperty('voice', voices[0].id)
+        
+        # Set speech rate
+        engine.setProperty('rate', 174)
+        
+        # Update UI
+        try:
+            eel.DisplayMessage(text)
+        except:
+            pass  # eel might not be initialized
+        
+        # Speak the text
+        engine.say(text)
+        engine.runAndWait()
+        
+        # Update UI again
+        try:
+            eel.receiverText(text)
+        except:
+            pass  # eel might not be initialized
+            
+    except Exception as e:
+        print(f"Speech error: {e}")
+        # Fallback: at least show the message in UI
+        try:
+            eel.DisplayMessage(text)
+        except:
+            print(f"JARVIS: {text}")  # Fallback to console
 
 def takecommand():
     r = sr.Recognizer()
@@ -83,14 +110,35 @@ def takeAllCommands(message=None):
                 PlayYoutube(query)
                 ai_response = f"Playing on YouTube"
             else:
-                from backend.feature import chatBot
-                ai_response = chatBot(query)
+                # Use proper OpenAI function calling system
+                from backend.openai_function_calling import jarvis_ai
+                
+                result = jarvis_ai.process_message(query)
+                
+                if result["success"]:
+                    if result["tools_used"]:
+                        print(f"🔧 JARVIS used tools: {result['tools_used']}")
+                    
+                    ai_response = result["response"]
+                else:
+                    print(f"❌ AI error: {result.get('error', 'Unknown error')}")
+                    # Fallback to simple chatbot
+                    try:
+                        from backend.feature import chatBot
+                        ai_response = chatBot(query)
+                    except:
+                        ai_response = result["response"]
             
-            # Save chat to history
+            # Save chat to history and speak the response
             if query and ai_response:
                 from backend.db import save_chat_message
                 if save_chat_message(query, ai_response):
                     print("Chat saved to history")
+                
+                # Speak the AI response
+                speak(ai_response)
+            else:
+                speak("I didn't understand that command.")
         else:
             speak("No command was given.")
             ai_response = "No command was given."
